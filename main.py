@@ -24,12 +24,64 @@ def main():
         option = main_menu()
 
         if (option == '1'):
+            # log in
             host, jid, passw = login_v()
+
+            # connection
+
+            # user menu
+            in_usage = True
+            while(in_usage):
+                option_2 = functions()
+
+                if (option_2 == 1): 
+                    # Mostrar todos los contactos y su estado
+                    0
+
+                elif (option_2 == 2): 
+                    # Agregar un usuario a los contactos
+                    0
+
+                elif (option_2 == 3): 
+                    # Chatear con un usuario/contacto
+                    0
+
+                elif (option_2 == 4):
+                    # Participar en conversaciones gurpales
+                    0
+
+                elif (option_2 == 5): 
+                    # Definir mensaje de presencia
+                    0
+
+                elif (option_2 == 6): 
+                    # Enviar/recibir notificaciones
+                    0
+
+                elif (option_2 == 7): 
+                    # Enviar/Recibir archivos
+                    0
+
+                elif (option_2 == 8): 
+                    # Eliminar cuenta del servidor
+                    res = deleteAccout(jid)
+                    if res == True:
+                        # Eliminar cuenta
+                        0
+
+                elif (option_2 == 9): 
+                    # Cerrar sesión
+                    print("Cerrando sesión")
+                    in_usage = False
+
 
         elif (option == '2'):
+            # sign in
             host, jid, passw = login_v()
+            print("Ahora ingrese con sus nuevos datos")
 
         elif (option == '3'):
+            # quit
             programRunning = False
 
 
