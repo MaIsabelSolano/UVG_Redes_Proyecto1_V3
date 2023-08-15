@@ -1,0 +1,4 @@
+pip install slixmpp
+pip install --upgrade slixmpp pycares aiodns
+pip install pycares
+pip install --upgrade cffi
