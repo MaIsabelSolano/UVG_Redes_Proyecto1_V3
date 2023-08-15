@@ -20,15 +20,14 @@ def main_menu():
 def login_v():
     while(True):
         print("\n__________________________")
-        print("\nIngrese los datos que se le solicitan a continuación:")
-        host = input("Servidor al que desea conectarse: ")
+        print("\nIngrese los datos que se le solicitan a continuación:\n")
         user = input("Nombre de usuario: ")
         password = getpass("Contraseña: ")
 
         print("\nSon estos los datos con los que quiere iniciar sesión?")
         cont = input("(Y/n) ")
 
-        if (cont == "Y" or cont == 'y'): return host, user, password
+        if (cont == "Y" or cont == 'y'): return user, password
 
 
 def functions():
