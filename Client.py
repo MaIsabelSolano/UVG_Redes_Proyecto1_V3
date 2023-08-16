@@ -11,6 +11,7 @@ class Client(slixmpp.ClientXMPP):
         self.host = jid.split('@')[1]
         self.status = ""
         self.status_message = ""
+        self.message_history = {}
         
 
         # Obtenido de ejemplos de slixmpp
@@ -21,6 +22,7 @@ class Client(slixmpp.ClientXMPP):
 
         self.add_event_handler("session_start", self.start)
         self.add_event_handler('presence', self.presence_handler)
+        self.add_event_handler("message", self.message_received)
 
     # Funciones necesarias para el funcionamiento correcto del cliente
 
@@ -164,6 +166,11 @@ class Client(slixmpp.ClientXMPP):
             cont = input("Dirección del contacto") 
             if (cont == ""): return 
 
+        # Impresión de mensajes previos
+        if (cont in self.message_history):
+            print_messages(self.message_history[cont])
+        else: print("\nno hay mensajes previos")
+
         # definir el mensaje
         message = input("Mensaje a enviar: ")
         if (message == ""):
@@ -179,6 +186,33 @@ class Client(slixmpp.ClientXMPP):
         
         print(f"{self.name} le a enviado a {cont}: {message}")
 
+    async def message_received(self, message): 
+
+        await self.get_roster()
+
+        # mensajes_from_contact = []
+        
+        if message['type'] == 'chat' or message['type'] == 'normal':
+            fromusr = str(message['from']).split("@")[0] # nombre del usuario
+
+            if message['body'].startswith("file://"):
+                # Es un archivo el que se está recibiendo 
+                0
+
+            else:
+                body = message['body']
+                print("\n********* Mensaje entrante! *******")
+                print(f"{fromusr}: {body}")
+                print("\n***********************************\n")
+
+                # Añadir al historial de mensajes
+                if fromusr not in self.message_history:
+                    # Se agrega el contacto al historial
+                    self.message_history[fromusr] = []
+                self.message_history[fromusr].append((fromusr, body))
+                
+
+        await self.get_roster()
 
 
     # opción 5

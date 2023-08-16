@@ -41,7 +41,7 @@ def functions():
         print("\n1) Mostrar todos los contactos y su estado")
         print("\n2) Agregar un usuario a los contactos")
         print("\n3) Chatear con un usuario/contacto")
-        print("\n4) Participar en conversaciones gurpales")
+        print("\n4) Participar en conversaciones grupales")
         print("\n5) Definir mensaje de presencia")
         print("\n6) Enviar/recibir notificaciones")
         print("\n7) Enviar/Recibir archivos")
@@ -101,6 +101,15 @@ def select_contact(contacts):
         except:
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
+def print_messages(list_m):
+
+    if len(list_m) == 0:
+        # No hay mensajes que imprimir
+        print("\nBuzón de mensajes vacío")
+        return 
+
+    for m in list_m:
+        print(m)
 
 def select_presence():
 
