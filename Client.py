@@ -63,7 +63,7 @@ class Client(slixmpp.ClientXMPP):
 
             elif (option_2 == 3): 
                 # Chatear con un usuario/contacto
-                await self.send_message_("echobot@alumchat.xyz", "clue")
+                await self.send_message_()
 
             elif (option_2 == 4):
                 # Participar en conversaciones gurpales
@@ -92,6 +92,7 @@ class Client(slixmpp.ClientXMPP):
                 # Cerrar sesión
                 print("Cerrando sesión")
                 self.disconnect()
+                self.is_connected = False
 
     # option # 1
     async def contacts_status(self):
@@ -125,19 +126,32 @@ class Client(slixmpp.ClientXMPP):
             print("No se han encontrado contactos")
         
 
-    async def getContacts(self):
-        # listado de contactos
+    # opción # 3
+    async def send_message_(self):
+        
         await self.get_roster()
+        # elegir contacto 
         conts = self.roster
         contacts = [c for c in conts.keys()]
 
+        if (len(contacts) > 0):
 
-    # option # 3
-    async def send_message_(self, cont, message):
-        
-        await self.get_roster()
+            cont = select_contact(contacts)
 
-        # fucnión de envío de mensajes de slixmpp
+            if (cont is None or cont == ""): return
+
+        else:
+            print("No se han encontrado contactos")
+            cont = input("Dirección del contacto") 
+            if (cont == ""): return 
+
+        # definir el mensaje
+        message = input("Mensaje a enviar: ")
+        if (message == ""):
+            print("\n[[El mensje no puede estar vacío]]")
+            return
+
+        # función de envío de mensajes de slixmpp
         self.send_message(mto=cont, 
                           mbody=message, 
                           mtype='chat')

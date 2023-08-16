@@ -67,6 +67,41 @@ def print_contacts(contacts):
 
     print(x)
 
+def select_contact(contacts):
+    # crear la tabla
+    x = PrettyTable()
+    x.field_names = ["#", "Contacto"]
+    for i in range(len(contacts)):
+        x.add_row([i + 1, contacts[i]])
+    x.add_row([len(contacts) + 1, "Escribir usuario"])
+    x.add_row([len(contacts) + 2, "CANCELAR"])
+
+    choosing = True 
+    while(choosing):
+        print("\nElige el contacto al que le quieres enviar mensaje")
+        print(x)
+
+        try:
+            op_ = int(input("No. del contacto/opción: "))
+
+            if (op_ - 1 in range(len(contacts))):
+                return contacts[op_ - 1]
+            
+            elif (op_ == len(contacts) + 1):
+                cont = input("Ingrese el usuario: ")
+                return cont 
+            
+            elif (op_ == len(contacts) + 2): 
+                print("Cancelando enviar mensaje")
+                return None
+            
+            else:
+                print("\n[[Opción inválida, pruebe nuevamente]]")
+
+        except:
+            print("\n[[Opción inválida, pruebe nuevamente]]")
+
+
 def addContact():
     0
 
