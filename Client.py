@@ -55,7 +55,7 @@ class Client(slixmpp.ClientXMPP):
 
             if (option_2 == 1): 
                 # Mostrar todos los contactos y su estado
-                0
+                await self.contacts_status()
 
             elif (option_2 == 2): 
                 # Agregar un usuario a los contactos
@@ -93,11 +93,54 @@ class Client(slixmpp.ClientXMPP):
                 print("Cerrando sesión")
                 self.disconnect()
 
-
-    async def send_message_(self, cont, message):
-        print("se envió ", message)
+    # option # 1
+    async def contacts_status(self):
+        # listado de contactos
         await self.get_roster()
+        conts = self.client_roster
+        contacts = [c for c in conts.keys()]
+        contactsFullInfo = []
+
+        if (len(contacts) > 0):
+            for contact in contacts:
+
+                sh = 'avaliable'
+                st = ''
+
+                # info del contacto
+                info = conts.presence(contact)
+
+                for answ, pres in info.items():
+                    if pres['show']:
+                        sh = pres['show']
+                    if pres['status']:
+                        st = pres['status']
+
+                contactsFullInfo.append([contact, sh, st])
+
+            print_contacts(contactsFullInfo)
+                
+
+        else:
+            print("No se han encontrado contactos")
+        
+
+    async def getContacts(self):
+        # listado de contactos
+        await self.get_roster()
+        conts = self.roster
+        contacts = [c for c in conts.keys()]
+
+
+    # option # 3
+    async def send_message_(self, cont, message):
+        
+        await self.get_roster()
+
+        # fucnión de envío de mensajes de slixmpp
         self.send_message(mto=cont, 
                           mbody=message, 
                           mtype='chat')
+        
+        print(f"{self.name} le a enviado a {cont}: {message}")
         

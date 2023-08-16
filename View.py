@@ -1,4 +1,5 @@
 from getpass import getpass
+from prettytable import PrettyTable
 
 def main_menu():
 
@@ -58,6 +59,13 @@ def functions():
         except:
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
+def print_contacts(contacts):
+    x = PrettyTable()
+    x.field_names = ["Contacto", "Estado", "Mensaje de estado"]
+    for c in contacts:
+        x.add_row([c[0], c[1], c[2]])
+
+    print(x)
 
 def addContact():
     0
