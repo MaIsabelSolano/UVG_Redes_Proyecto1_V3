@@ -102,8 +102,35 @@ def select_contact(contacts):
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
 
-def addContact():
-    0
+def select_presence():
+
+    choosing = True
+
+    while(choosing):
+
+        possibleStatus = ['chat', 'xa', 'away', 'dnd']
+
+        print("\nPor favor elija el status que al cual desea cambiar")
+        print("\n1) Disponible")
+        print("\n2) Ocupado")
+        print("\n3) Ausente")
+        print("\n4) No molestar")
+
+        try:
+
+            opStat = int(input("\nNo. de la opción: "))
+            if opStat in range(1, 5):
+                # definir mensaje
+                print("\nAhora escriba el mesaje que desea")
+                status_m = input("\nNuevo estado:")
+
+                return possibleStatus[opStat - 1], status_m
+
+            else:
+                print("\n[[Opción inválida, pruebe nuevamente]]")
+
+        except:
+            print("\n[[Opción inválida, pruebe nuevamente]]")
 
 
 def deleteAccout(jid):

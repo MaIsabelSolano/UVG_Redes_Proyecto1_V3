@@ -9,6 +9,8 @@ class Client(slixmpp.ClientXMPP):
 
         self.name = jid.split('@')[0]
         self.host = jid.split('@')[1]
+        self.status = ""
+        self.status_message = ""
         
 
         # Obtenido de ejemplos de slixmpp
@@ -45,7 +47,7 @@ class Client(slixmpp.ClientXMPP):
 
 
     # Funciones para el usuario
-
+    # menú
     async def user_menu(self):
         print("menu")
         # user menu
@@ -66,12 +68,12 @@ class Client(slixmpp.ClientXMPP):
                 await self.send_message_()
 
             elif (option_2 == 4):
-                # Participar en conversaciones gurpales
+                # Participar en conversaciones grupales
                 0
 
             elif (option_2 == 5): 
                 # Definir mensaje de presencia
-                0
+                await self.update_presence()
 
             elif (option_2 == 6): 
                 # Enviar/recibir notificaciones
@@ -173,5 +175,18 @@ class Client(slixmpp.ClientXMPP):
                           mbody=message, 
                           mtype='chat')
         
+        await self.get_roster()
+        
         print(f"{self.name} le a enviado a {cont}: {message}")
+
+
+
+    # opción 5
+    async def update_presence(self):
+        await self.get_roster() 
+        self.status, self.status_message = select_presence()
+        self.send_presence(pshow=self.status, pstatus=self.status_message)
+        await self.get_roster() 
+
+
         
