@@ -11,6 +11,7 @@ Maria Isabel Solano - 20504
 
 import sys, asyncio
 import pyfiglet
+import xmpp
 from Client import *
 from View import *
 
@@ -39,8 +40,29 @@ def main():
 
         elif (option == '2'):
             # registrarse
-            host, jid, passw = login_v()
-            print("Ahora ingrese con sus nuevos datos")
+            jid, passw = login_v()
+            
+            newUser = xmpp.JID(jid)
+
+            newUser_ = xmpp.Client(newUser.getDomain(), debug=[])
+            newUser_.connect()
+            
+            res = bool(
+                xmpp.features.register(
+                newUser_, 
+                newUser.getDomain(), 
+                {
+                    'username': newUser.getNode(),
+                    'password': passw
+                })
+            )
+
+            if res:
+                print("\nCuenta creada con éxito")
+            else:
+                print("\nOcurrió un error al momento de crear la cuenta")
+
+            print("Por favor seleccione el la primera opción para ingresar con sus nuevos datos")
 
         elif (option == '3'):
             # salir
