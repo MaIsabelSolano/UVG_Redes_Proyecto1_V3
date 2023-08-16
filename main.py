@@ -28,22 +28,22 @@ def main():
         option = main_menu()
 
         if (option == '1'):
-            # log in
+            # obtener usuario
             jid, passw = login_v()
 
+            # conexión
             client = Client(jid, passw)
             client.connect(disable_starttls=True, use_ssl=False)
             client.process(forever=False)
 
-            # connection
 
         elif (option == '2'):
-            # sign in
+            # registrarse
             host, jid, passw = login_v()
             print("Ahora ingrese con sus nuevos datos")
 
         elif (option == '3'):
-            # quit
+            # salir
             programRunning = False
 
 

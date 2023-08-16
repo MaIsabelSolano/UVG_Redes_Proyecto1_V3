@@ -59,7 +59,7 @@ class Client(slixmpp.ClientXMPP):
 
             elif (option_2 == 2): 
                 # Agregar un usuario a los contactos
-                0
+                await self.add_new_contact()
 
             elif (option_2 == 3): 
                 # Chatear con un usuario/contacto
@@ -124,6 +124,23 @@ class Client(slixmpp.ClientXMPP):
 
         else:
             print("No se han encontrado contactos")
+
+    # opción # 2
+    async def add_new_contact(self):
+        # conseguir el nombre del nuevo contacto 
+        print("\nIngrese la direción del nuevo usuario a agregar:")
+        newCont = input("Dirección: ")
+
+        if (len(newCont) == 0): return # cancelar la acción
+
+        try:
+            # Hacer el request
+            self.send_presence_subscription(pto=newCont)
+            await self.get_roster()
+            print("\nSe le ha enviado una solicitud de suscripción a ", newCont)
+
+        except:
+            print("\n[No se pudo realizar la acción]")
         
 
     # opción # 3
