@@ -12,6 +12,7 @@ class Client(slixmpp.ClientXMPP):
         self.status = ""
         self.status_message = ""
         self.message_history = {}
+        self.room = None
         
 
         # Obtenido de ejemplos de slixmpp
@@ -19,16 +20,18 @@ class Client(slixmpp.ClientXMPP):
         self.register_plugin('xep_0004') # Data Forms
         self.register_plugin('xep_0060') # PubSub
         self.register_plugin('xep_0199') # XMPP Ping
+        self.register_plugin('xep_0045') # Group chat
 
         self.add_event_handler("session_start", self.start)
         self.add_event_handler('presence', self.presence_handler)
-        self.add_event_handler("message", self.message_received)
+        self.add_event_handler("message", self.message_received)  # Join rooms upon login
 
     # Funciones necesarias para el funcionamiento correcto del cliente
 
     async def start(self, event):
         print("start")
 
+        # presencia
         self.send_presence()
         await self.get_roster()
 
@@ -46,7 +49,7 @@ class Client(slixmpp.ClientXMPP):
             except:
                 print("Hubo un error en el presence handler")
 
-
+        
 
     # Funciones para el usuario
     # menú
@@ -71,7 +74,7 @@ class Client(slixmpp.ClientXMPP):
 
             elif (option_2 == 4):
                 # Participar en conversaciones grupales
-                0
+                print("\nn/i")
 
             elif (option_2 == 5): 
                 # Definir mensaje de presencia
@@ -83,7 +86,7 @@ class Client(slixmpp.ClientXMPP):
 
             elif (option_2 == 7): 
                 # Enviar/Recibir archivos
-                0
+                print("\nn/i")
 
             elif (option_2 == 8): 
                 # Eliminar cuenta del servidor
@@ -204,6 +207,9 @@ class Client(slixmpp.ClientXMPP):
                 print("\n********* Mensaje entrante! *******")
                 print(f"{fromusr}: {body}")
                 print("\n***********************************\n")
+
+                pop_m = f"Nuevo mensaje de {fromusr}"
+                popUp("Mensaje entrante", pop_m)
 
                 # Añadir al historial de mensajes
                 if fromusr not in self.message_history:

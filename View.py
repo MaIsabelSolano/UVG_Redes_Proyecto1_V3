@@ -1,5 +1,8 @@
 from getpass import getpass
 from prettytable import PrettyTable
+from tkinter import *  
+from tkinter import messagebox
+
 
 def main_menu():
 
@@ -161,6 +164,14 @@ def deleteAccout(jid):
 
     else: 
         return False
+    
+
+def popUp(title, message):
+    root = Tk()
+    root.geometry("400x200")
+    messagebox.showinfo(title, message)
+    root.mainloop() 
+
 
         
 
