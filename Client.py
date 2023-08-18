@@ -1,6 +1,6 @@
 import slixmpp
 import asyncio
-
+from slixmpp.xmlstream.stanzabase import ET
 from View import *
 
 class Client(slixmpp.ClientXMPP):
@@ -93,7 +93,7 @@ class Client(slixmpp.ClientXMPP):
                 res = deleteAccout(self.jid)
                 if res == True:
                     # Eliminar cuenta
-                    0
+                    await self.del_account()
 
             elif (option_2 == 9): 
                 # Cerrar sesión
@@ -228,5 +228,26 @@ class Client(slixmpp.ClientXMPP):
         self.send_presence(pshow=self.status, pstatus=self.status_message)
         await self.get_roster() 
 
+
+    # opción # 8
+    async def del_account(self):
+        
+        try:
+            self.send_presence()
+            self.disconnect()
+            res = self.Iq()
+            res['type'] = 'set'
+            res['from'] = self.boundjid.user 
+            print("\nEliminando...")
+            # query obtenido pidiendo ayuda a compañeros
+            frag = ET.fromstring("<query xmlns='jabber:iq:register'><remove/></query>")
+            res.append(frag)
+
+            await res.send()
+            print("\nCuenta eliminada con éxito")
+            self.is_connected = False
+
+        except Exception as e:
+            print(f"\nOcurrió un error {e} al momento de eliminar la cuenta")
 
         

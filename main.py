@@ -23,6 +23,7 @@ def main():
     titulo = pyfiglet.figlet_format("Chat XMPP")
     print("\n"+titulo)  
 
+
     programRunning = True
     while(programRunning):
 

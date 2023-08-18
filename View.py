@@ -147,16 +147,16 @@ def select_presence():
 
 def deleteAccout(jid):
     print("\nEstá segur@ de que desea eliminar la cuenta? ")
-    ver_1 = input("(Y/n)")
+    ver_1 = input("(Y/n) ")
 
     if (ver_1 == 'Y' or ver_1 == 'y'):
         # continue
-        print("Como medida de seguridad, reescriba su usuario")
-        ver_2 = input()
+        print(f"Como medida de seguridad, reescriba su usuario {jid}")
+        ver_2 = input().lower()
 
         if (ver_2 == jid):
-            print("\nInicio de proceso de eliminación de cuenta")
-            return False
+            print("\nInicio de proceso de eliminación de cuenta...")
+            return True
 
         else:
             print("\nLa cuenta escrita no es igual a la cuenta actual. Pruebe más tarde")
