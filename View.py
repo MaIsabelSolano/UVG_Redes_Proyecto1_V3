@@ -35,21 +35,22 @@ def login_v():
 
 
 def functions():
-    valid_options = range(1, 10) # [1, 9]
+    valid_options = range(1, 11) # [1, 9]
 
     stop = False
     while(not stop):
         print("\n__________________________")
         print("\nIngrese el número de la opción que desea realizar: ")
-        print("\n1) Mostrar todos los contactos y su estado")
-        print("\n2) Agregar un usuario a los contactos")
-        print("\n3) Chatear con un usuario/contacto")
-        print("\n4) Participar en conversaciones grupales")
-        print("\n5) Definir mensaje de presencia")
-        print("\n6) Enviar/recibir notificaciones")
-        print("\n7) Enviar/Recibir archivos")
-        print("\n8) Eliminar cuenta del servidor")
-        print("\n9) Cerrar sesión")
+        print("\n01) Mostrar todos los contactos y su estado")
+        print("\n02) Agregar un usuario a los contactos")
+        print("\n03) Chatear con un usuario/contacto")
+        print("\n04) Ver información de un contacto")
+        print("\n05) Participar en conversaciones grupales")
+        print("\n06) Definir mensaje de presencia")
+        print("\n07) Enviar/recibir notificaciones")
+        print("\n08) Enviar/Recibir archivos")
+        print("\n09) Eliminar cuenta del servidor")
+        print("\n10) Cerrar sesión")
 
         try:
             op = int(input("\nNo.de opción: "))
@@ -103,6 +104,45 @@ def select_contact(contacts):
 
         except:
             print("\n[[Opción inválida, pruebe nuevamente]]")
+
+def select_contact_id(contacts):
+    # crear la tabla
+    x = PrettyTable()
+    x.field_names = ["#", "Contacto"]
+    for i in range(len(contacts)):
+        x.add_row([i + 1, contacts[i]])
+    x.add_row([len(contacts) + 1, "CANCELAR"])
+
+    choosing = True 
+    while(choosing):
+        print("\nElige el contacto al que le quieres enviar mensaje")
+        print(x)
+
+        try:
+            op_ = int(input("No. del contacto: "))
+
+            if (op_ - 1 in range(len(contacts))):
+                return op_ - 1
+            
+            elif (op_ == len(contacts) + 1): 
+                print("Cancelando acción")
+                return None
+            
+            else:
+                print("\n[[Opción inválida, pruebe nuevamente]]")
+
+        except:
+            print("\n[[Opción inválida, pruebe nuevamente]]")
+
+def print_contact_info(contact):
+    
+    print("\n*****************************************************")
+    print("Información del usuario:")
+    print("Nombre: ", contact[0].split('@')[0])
+    print("Host: ", contact[0].split('@')[1])
+    print("Estado: ", contact[1])
+    print("Mensaje de estado: ", contact[2])
+    print("*****************************************************\n")
 
 def print_messages(list_m):
 

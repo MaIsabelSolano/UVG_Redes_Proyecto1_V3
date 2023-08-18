@@ -73,29 +73,33 @@ class Client(slixmpp.ClientXMPP):
                 await self.send_message_()
 
             elif (option_2 == 4):
+                # Conseguir info de un contacto
+                await self.get_contact_info()
+
+            elif (option_2 == 5):
                 # Participar en conversaciones grupales
                 print("\nn/i")
 
-            elif (option_2 == 5): 
+            elif (option_2 == 6): 
                 # Definir mensaje de presencia
                 await self.update_presence()
 
-            elif (option_2 == 6): 
+            elif (option_2 == 7): 
                 # Enviar/recibir notificaciones
                 0
 
-            elif (option_2 == 7): 
+            elif (option_2 == 8): 
                 # Enviar/Recibir archivos
                 print("\nn/i")
 
-            elif (option_2 == 8): 
+            elif (option_2 == 9): 
                 # Eliminar cuenta del servidor
                 res = deleteAccout(self.jid)
                 if res == True:
                     # Eliminar cuenta
                     await self.del_account()
 
-            elif (option_2 == 9): 
+            elif (option_2 == 10): 
                 # Cerrar sesión
                 print("Cerrando sesión")
                 self.disconnect()
@@ -219,6 +223,43 @@ class Client(slixmpp.ClientXMPP):
                 
 
         await self.get_roster()
+
+    # opción 4
+    async def get_contact_info(self):
+        # conseguir toda la info de contactos
+        await self.get_roster()
+        conts = self.client_roster
+        contacts = [c for c in conts.keys()]
+        contactsFullInfo = []
+
+        if (len(contacts) > 0):
+            for contact in contacts:
+
+                sh = 'avaliable'
+                st = ''
+
+                # info del contacto
+                info = conts.presence(contact)
+
+                for answ, pres in info.items():
+                    if pres['show']:
+                        sh = pres['show']
+                    if pres['status']:
+                        st = pres['status']
+
+                contactsFullInfo.append([contact, sh, st])                
+
+        else:
+            print("No se han encontrado contactos")
+            return
+
+        # elegir contacto (por id)
+        cont_i = select_contact_id(contacts)
+
+        if (cont_i == None): return
+
+        print_contact_info(contactsFullInfo[cont_i])
+
 
 
     # opción 5
