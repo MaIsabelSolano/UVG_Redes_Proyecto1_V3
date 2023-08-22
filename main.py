@@ -9,7 +9,7 @@ Maria Isabel Solano - 20504
 
 """
 
-import sys, asyncio
+import asyncio
 import pyfiglet
 import xmpp
 from Client import *
