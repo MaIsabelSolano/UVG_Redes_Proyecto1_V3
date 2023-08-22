@@ -26,17 +26,21 @@ class Client(slixmpp.ClientXMPP):
         self.add_event_handler('presence', self.presence_handler)
         self.add_event_handler("message", self.message_received)  # Join rooms upon login
         self.add_event_handler("subscribe", self.handle_subscription)
+        self.add_event_handler("roster_subscription_remove", self.handle_removed_sub)
+        
 
-    # Funciones necesarias para el funcionamiento correcto del cliente
+    # Necesary functions for the program
 
     async def start(self, event):
         print("start")
 
-        # presencia
+        # presence
         self.send_presence()
         await self.get_roster()
 
         asyncio.create_task(self.user_menu())
+        """Initializes de program by sending the presence, getting the roster and creating the user menu
+        """
 
     
     async def presence_handler(self, presence):
@@ -49,6 +53,9 @@ class Client(slixmpp.ClientXMPP):
 
             except:
                 print("Hubo un error en el presence handler")
+        """
+        Handles how the presence is dealt with. It sends the currente presence to the accounts the user is subscribed to
+        """
 
     async def handle_subscription(self, presence):
         if presence["type"] == "subscribe":
@@ -60,11 +67,26 @@ class Client(slixmpp.ClientXMPP):
                 print("Suscripción aceptada")
             else:
                 print("Suscripción denegada")
-        
+        """
+        Handles subscriptions requests
+        """
+
+    async def handle_removed_sub(self, pres):
+        # notify user
+        pop_m = f""
+        popUp("Removed Sub", pop_m)
+
+        self._handle_removed_subscription(pres)
+        """
+        Handles when another account has canceled a subscription to the user's account
+        """
 
     # Funciones para el usuario
     # menú
     async def user_menu(self):
+
+        await self.get_roster()
+
         print("menu")
         # user menu
         while(self.is_connected):
@@ -97,7 +119,7 @@ class Client(slixmpp.ClientXMPP):
 
             elif (option_2 == 7): 
                 # Enviar/recibir notificaciones
-                0
+                await self.get_roster()
 
             elif (option_2 == 8): 
                 # Enviar/Recibir archivos
@@ -115,6 +137,10 @@ class Client(slixmpp.ClientXMPP):
                 print("Cerrando sesión")
                 self.disconnect()
                 self.is_connected = False
+
+        """
+        Main menu. Handles the users needs
+        """
 
     # option # 1
     async def contacts_status(self):
@@ -147,6 +173,10 @@ class Client(slixmpp.ClientXMPP):
         else:
             print("No se han encontrado contactos")
 
+        """
+        Gets all the user's contacts and stores their information to display it
+        """
+
     # opción # 2
     async def add_new_contact(self):
         # conseguir el nombre del nuevo contacto 
@@ -162,7 +192,11 @@ class Client(slixmpp.ClientXMPP):
             print("\nSe le ha enviado una solicitud de suscripción a ", newCont)
 
         except:
-            print("\n[No se pudo realizar la acción]")
+            print("\n[[No se pudo realizar la acción]]")
+
+        """
+        Givena new a directions, adds that direction to dhe contact lists even if it doesn't exist. 
+        """
         
 
     # opción # 3
@@ -204,6 +238,11 @@ class Client(slixmpp.ClientXMPP):
         
         print(f"{self.name} le a enviado a {cont}: {message}")
 
+        """
+        Sends a messages. This can be done by either choosing an account from the user's contacts of 
+        by writing it's direction. 
+        """
+
     async def message_received(self, message): 
 
         await self.get_roster()
@@ -234,6 +273,10 @@ class Client(slixmpp.ClientXMPP):
                 
 
         await self.get_roster()
+
+        """
+        Handles incoming new messegas and displays an alet for them 
+        """
 
     # opción 4
     async def get_contact_info(self):
@@ -271,6 +314,10 @@ class Client(slixmpp.ClientXMPP):
 
         print_contact_info(contactsFullInfo[cont_i])
 
+        """
+        Gets all the information of chosen user from the contact list
+        """
+
 
 
     # opción 5
@@ -279,6 +326,10 @@ class Client(slixmpp.ClientXMPP):
         self.status, self.status_message = select_presence()
         self.send_presence(pshow=self.status, pstatus=self.status_message)
         await self.get_roster() 
+
+        """
+        Updats presence by status and message
+        """
 
 
     # opción # 8
@@ -301,5 +352,9 @@ class Client(slixmpp.ClientXMPP):
 
         except Exception as e:
             print(f"\nOcurrió un error {e} al momento de eliminar la cuenta")
+
+        """
+        Deletes the user's account. Asks for verification first. 
+        """
 
         

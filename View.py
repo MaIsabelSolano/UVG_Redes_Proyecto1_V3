@@ -5,6 +5,12 @@ from tkinter import messagebox
 
 
 def main_menu():
+    """
+    Displays main meny for the user to either log in, sing up or quit
+
+    Returns:
+        str: User's option
+    """
 
     "\nBienvenid@ al programa. A continuación ingrese el número de opción que desea realizar"
 
@@ -21,7 +27,15 @@ def main_menu():
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
 
+
 def login_v():
+    """
+    Obtains user input and verifys if the user think it's okayy
+
+    Returns:
+        str: user's user direction
+        str: user's password
+    """
     while(True):
         print("\n__________________________")
         print("\nIngrese los datos que se le solicitan a continuación:\n")
@@ -35,7 +49,13 @@ def login_v():
 
 
 def functions():
-    valid_options = range(1, 11) # [1, 9]
+    """
+    Shows options to user and gets the input
+
+    Returns:
+        int: User's option between 1 and 10
+    """
+    valid_options = range(1, 11) # [1, 10]
 
     stop = False
     while(not stop):
@@ -64,6 +84,12 @@ def functions():
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
 def print_contacts(contacts):
+    """
+    Given a list of contacts, this function creates a table to display them
+
+    Args:
+        contacts (str): contact list
+    """
     x = PrettyTable()
     x.field_names = ["Contacto", "Estado", "Mensaje de estado"]
     for c in contacts:
@@ -72,6 +98,16 @@ def print_contacts(contacts):
     print(x)
 
 def select_contact(contacts):
+    """
+    Given a list of contacts, this function creates a table to display them and give's the option
+    to choose one of them
+
+    Args:
+        contacts (str): contact list
+
+    Returns:
+        str: chosen contact directon
+    """
     # crear la tabla
     x = PrettyTable()
     x.field_names = ["#", "Contacto"]
@@ -106,6 +142,16 @@ def select_contact(contacts):
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
 def select_contact_id(contacts):
+    """
+    Given a list of contacts, this function creates a table to display them and give's the option
+    to choose one of them
+
+    Args:
+        contacts (str): contact list
+
+    Returns:
+        str: chosen contact number in the lsit
+    """
     # crear la tabla
     x = PrettyTable()
     x.field_names = ["#", "Contacto"]
@@ -135,6 +181,12 @@ def select_contact_id(contacts):
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
 def print_contact_info(contact):
+    """
+    Given a list of contacts, and their information, it creates a table to display the information
+
+    Args:
+        contact (array): Contact and information
+    """
     
     print("\n*****************************************************")
     print("Información del usuario:")
@@ -145,6 +197,9 @@ def print_contact_info(contact):
     print("*****************************************************\n")
 
 def print_messages(list_m):
+    """
+    Given a message, it prints all the messages
+    """
 
     if len(list_m) == 0:
         # No hay mensajes que imprimir
@@ -155,6 +210,12 @@ def print_messages(list_m):
         print(m)
 
 def select_presence():
+    """Gives the user the option to change presence message and presence status
+
+    Returns:
+        int: status id
+        str: message status
+    """
 
     choosing = True
 
@@ -186,6 +247,16 @@ def select_presence():
 
 
 def deleteAccout(jid):
+    """
+    Delete Account verification. Assures that the user is deleted the current account and not
+    mistaken it with another they might have 
+
+    Args:
+        jid (JID): User's JID
+
+    Returns:
+        bool: permition to delete account
+    """
     print("\nEstá segur@ de que desea eliminar la cuenta? ")
     ver_1 = input("(Y/n) ")
 
@@ -206,6 +277,16 @@ def deleteAccout(jid):
         return False
     
 def popUp_ask(title, message):
+    """
+    Generates a pop um message user tkinter. Lets the user decline
+
+    Args:
+        title (str): Title of the action
+        message (str): Actual message
+
+    Returns:
+        bool: Wheather or not accept incoming message
+    """
 
     root = tk.Tk()
 
@@ -220,6 +301,13 @@ def popUp_ask(title, message):
     
 
 def popUp(title, message):
+    """_summary_
+    Generates a pop um message user tkinter
+
+    Args:
+        title (str): Title of the action
+        message (str): Actual message
+    """
 
     root = tk.Tk()
 
