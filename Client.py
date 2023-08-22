@@ -25,6 +25,7 @@ class Client(slixmpp.ClientXMPP):
         self.add_event_handler("session_start", self.start)
         self.add_event_handler('presence', self.presence_handler)
         self.add_event_handler("message", self.message_received)  # Join rooms upon login
+        self.add_event_handler("subscribe", self.handle_subscription)
 
     # Funciones necesarias para el funcionamiento correcto del cliente
 
@@ -49,6 +50,16 @@ class Client(slixmpp.ClientXMPP):
             except:
                 print("Hubo un error en el presence handler")
 
+    async def handle_subscription(self, presence):
+        if presence["type"] == "subscribe":
+            pop_m = f"Nueva solicitud de subscripción de {presence['from']}"
+            res = popUp()
+
+            if res:
+                self.send_presence(pto=presence["from"], ptype=["subscribed"])
+                print("Suscripción aceptada")
+            else:
+                print("Suscripción denegada")
         
 
     # Funciones para el usuario
@@ -159,7 +170,7 @@ class Client(slixmpp.ClientXMPP):
         
         await self.get_roster()
         # elegir contacto 
-        conts = self.roster
+        conts = self.client_roster
         contacts = [c for c in conts.keys()]
 
         if (len(contacts) > 0):

@@ -40,30 +40,34 @@ def main():
 
 
         elif (option == '2'):
-            # registrarse
-            jid, passw = login_v()
-            
-            newUser = xmpp.JID(jid)
+            try:
+                # registrarse
+                jid, passw = login_v()
+                
+                newUser = xmpp.JID(jid)
 
-            newUser_ = xmpp.Client(newUser.getDomain(), debug=[])
-            newUser_.connect()
-            
-            res = bool(
-                xmpp.features.register(
-                newUser_, 
-                newUser.getDomain(), 
-                {
-                    'username': newUser.getNode(),
-                    'password': passw
-                })
-            )
+                newUser_ = xmpp.Client(newUser.getDomain(), debug=[])
+                newUser_.connect()
+                
+                res = bool(
+                    xmpp.features.register(
+                    newUser_, 
+                    newUser.getDomain(), 
+                    {
+                        'username': newUser.getNode(),
+                        'password': passw
+                    })
+                )
 
-            if res:
-                print("\nCuenta creada con éxito")
-            else:
-                print("\nOcurrió un error al momento de crear la cuenta")
+                if res:
+                    print("\nCuenta creada con éxito")
+                else:
+                    print("\nOcurrió un error al momento de crear la cuenta")
 
-            print("Por favor seleccione el la primera opción para ingresar con sus nuevos datos")
+                print("Por favor seleccione el la primera opción para ingresar con sus nuevos datos")
+
+            except:
+                print("\n[[Ocurrió un error, pruebe más tarde]]\n")
 
         elif (option == '3'):
             # salir

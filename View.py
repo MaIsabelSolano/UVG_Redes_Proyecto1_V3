@@ -1,6 +1,6 @@
 from getpass import getpass
 from prettytable import PrettyTable
-from tkinter import *  
+import tkinter as tk
 from tkinter import messagebox
 
 
@@ -205,11 +205,29 @@ def deleteAccout(jid):
     else: 
         return False
     
+def popUp_ask(title, message):
+
+    root = tk.Tk()
+
+    res = messagebox.askokcancel(title, message)
+    
+    root.mainloop() 
+
+    if res:
+        return True
+    else:
+        return False
+    
 
 def popUp(title, message):
-    root = Tk()
-    root.geometry("400x200")
+
+    root = tk.Tk()
+
     messagebox.showinfo(title, message)
+
+    # messagebox.showinfo(title, message)
+    
+    
     root.mainloop() 
 
 
