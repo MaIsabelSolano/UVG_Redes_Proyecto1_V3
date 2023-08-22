@@ -2,3 +2,8 @@ pip install slixmpp
 pip install --upgrade slixmpp pycares aiodns
 pip install pycares
 pip install --upgrade cffi
+pip install pyfiglet==0.7
+pip install asyncio
+pip install slixmpp
+pip install tk
+pip install prettytable
