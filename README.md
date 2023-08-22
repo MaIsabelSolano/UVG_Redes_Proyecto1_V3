@@ -19,7 +19,7 @@ Maria Isabel Solano (20504)
 ([Wallman](https://www.wallarm.com/what/extensible-messaging-presence-protocol), s.f.)
 
 ## Requirements
-The necessary libraries for the project are the following. 
+The necessary libraries for the project are the following. You can use the requirements text file to install them too.
 - `pip install pyfiglet==0.7`
 - `pip install asyncio`
 - `pip install slixmpp`
@@ -27,8 +27,9 @@ The necessary libraries for the project are the following.
 - `pip install prettytable`
 
 ## How to use
-Para utilizar es necesario tener todos los requerimientos anteriormente mencionados instalados en el dispositivo. Para ejecutar el programa solo es neceario correr el siguiente commando:
-- `py main.py` (puede variar dependiendo de la configuración de python)
+To use the project, it is necessary for all the requirements to have been met. <br>
+To excecute the program you can use the following command prompt:
+- `py main.py` (may change according to local Pyhton configuration) 
 
 ## Functions
 1. Log in to accounts
