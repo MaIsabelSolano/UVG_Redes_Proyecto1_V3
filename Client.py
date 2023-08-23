@@ -135,7 +135,7 @@ class Client(slixmpp.ClientXMPP):
 
             elif (option_2 == 5):
                 # Participar en conversaciones grupales
-                print("\nn/i")
+                print("\nLa opción no fue implmentada")
 
             elif (option_2 == 6): 
                 # Definir mensaje de presencia
@@ -144,10 +144,11 @@ class Client(slixmpp.ClientXMPP):
             elif (option_2 == 7): 
                 # Enviar/recibir notificaciones
                 await self.get_roster()
+                print("\nOpción innecesaria")
 
             elif (option_2 == 8): 
                 # Enviar/Recibir archivos
-                print("\nn/i")
+                print("\nLa opción no fue implementada")
 
             elif (option_2 == 9): 
                 # Eliminar cuenta del servidor

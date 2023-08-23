@@ -65,10 +65,7 @@ def functions():
         print("\n02) Agregar un usuario a los contactos")
         print("\n03) Chatear con un usuario/contacto")
         print("\n04) Ver información de un contacto")
-        print("\n05) Participar en conversaciones grupales")
         print("\n06) Definir mensaje de presencia")
-        print("\n07) Enviar/recibir notificaciones")
-        print("\n08) Enviar/Recibir archivos")
         print("\n09) Eliminar cuenta del servidor")
         print("\n10) Cerrar sesión")
 
