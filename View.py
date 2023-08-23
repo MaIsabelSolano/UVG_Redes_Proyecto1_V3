@@ -83,6 +83,11 @@ def functions():
         except:
             print("\n[[Opción inválida, pruebe nuevamente]]")
 
+def print_pres(mess):
+    print("\n=============================================")
+    print(mess)
+    print("=============================================\n")
+
 def print_contacts(contacts):
     """
     Given a list of contacts, this function creates a table to display them

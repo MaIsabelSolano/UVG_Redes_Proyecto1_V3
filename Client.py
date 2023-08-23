@@ -26,6 +26,7 @@ class Client(slixmpp.ClientXMPP):
         self.add_event_handler('presence', self.presence_handler)
         self.add_event_handler("message", self.message_received)  # Join rooms upon login
         self.add_event_handler("subscribe", self.handle_subscription)
+        self.add_event_handler("roster_subscription_request", self.handle_subscription_request)
         self.add_event_handler("roster_subscription_remove", self.handle_removed_sub)
         
 
@@ -49,13 +50,36 @@ class Client(slixmpp.ClientXMPP):
             try:
                 self.send_presence_subscription(pto=presence['from'], ptype='subscribe')
                 await self.get_roster()
-
-
             except:
                 print("Hubo un error en el presence handler")
+
+        if presence['type'] == 'available':
+            print_pres(f"{presence['from']} se ha conectado")
+
+        elif presence['type'] == "unavailable":
+            print_pres(f"{presence['from']} se ha desconectado")
+
+        elif presence['type'] == "away":
+            print_pres(f"{presence['from']} se ga ido")
+
+        elif presence['type'] == "dnd":
+            print_pres(f"No molestar a {presence['from']}.")
+
+        elif presence['type'] == "xa":
+            print_pres(f"{presence['from']} no está disponible")
+
         """
         Handles how the presence is dealt with. It sends the currente presence to the accounts the user is subscribed to
         """
+
+    async def handle_subscription_request(self, pres):
+        await self.get_roster()
+        pop_m = f"Nueva solicitud de subscripción de {pres['from']}"
+        popUp("Notificación", pop_m)
+        """
+        Handles subscriptions requests
+        """
+
 
     async def handle_subscription(self, presence):
         if presence["type"] == "subscribe":
@@ -73,7 +97,7 @@ class Client(slixmpp.ClientXMPP):
 
     async def handle_removed_sub(self, pres):
         # notify user
-        pop_m = f""
+        pop_m = f"{pres['from']} ha removido su suscripción"
         popUp("Removed Sub", pop_m)
 
         self._handle_removed_subscription(pres)
